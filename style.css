@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+*,*:before,*:after {
+  box-sizing: border-box;
+}  
+
+:root {
+  --baseColor: #333;
+}
+
+a {
+  color: var(--baseColor);
+}
