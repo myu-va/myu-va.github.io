@@ -39,7 +39,7 @@ function calendar() {
     date = now.getDate(); //1~
     day = now.getDay(); //0~6(sun~sat)
     reiwa = "令和" + (year - 2019 + 1); //和暦　令和は2019年から
-
+    month=10;
     function headcap() {
         table = document.querySelector(".calendar");
         cap = document.createElement("caption");
@@ -186,92 +186,70 @@ function calendar() {
             document.getElementById(x[x.length-next+i]).textContent = i+1;
             document.getElementById(x[x.length-next+i]).className += " other_month";
         }
-        
     }
 
     function holiday() {
         // 休日
         switch(month) {
             case 1:
-                    document.getElementById(x[oneday]).className = "holi";
-                    document.getElementById(x[oneday]).title = "元日";   
+                holiname("元日",1);
                 // 第二月曜日が休み
-                if( oneday==0 ||  oneday==1) {
-                    document.getElementById(x[8]).className = "holi";
-                    document.getElementById(x[8]).title = "成人の日";
-                } else {
-                    document.getElementById(x[15]).className = "holi";
-                    document.getElementById(x[15]).title = "成人の日";
-                }
+                monday("成人の日",8);
                 break;
             case 2:
-                document.getElementById(x[oneday+22]).className = "holi";
-                document.getElementById(x[oneday+22]).title = "天皇誕生日";
-                document.getElementById(x[oneday+10]).className = "holi";
-                document.getElementById(x[oneday+10]).title = "建国記念の日";
+                holiname("天皇誕生日",23);
+                holiname("建国記念の日",11);
                 break;
             case 3:
                 //年によって変わるので注意。現在2024
-                document.getElementById(x[oneday+20]).className = "holi";
-                document.getElementById(x[oneday+20]).title = "春分の日";
+                holiname("春分の日",21);
                 break;
             case 4:
-                document.getElementById(x[oneday+28]).className = "holi";
-                document.getElementById(x[oneday+28]).title = "昭和の日";
+                holiname("昭和の日",29);
                 break;
             case 5:
-                document.getElementById(x[oneday+2]).className = "holi";
-                document.getElementById(x[oneday+2]).title = "憲法記念日";
-                document.getElementById(x[oneday+3]).className = "holi";
-                document.getElementById(x[oneday+3]).title = "みどりの日";
-                document.getElementById(x[oneday+4]).className = "holi";
-                document.getElementById(x[oneday+4]).title = "こどもの日";
+                holiname("憲法記念日",3);
+                holiname("みどりの日",4);
+                holiname("こどもの日",5);
                 break;
             case 7:
                 // 第三月曜日
-                if( oneday==0 ||  oneday==1) {
-                    document.getElementById(x[15]).className = "holi";
-                    document.getElementById(x[15]).title = "海の日";
-                } else {
-                    document.getElementById(x[22]).className = "holi";
-                    document.getElementById(x[22]).title = "海の日";
-                }
+                monday("海の日",15);
                 break;
             case 8:
-                document.getElementById(x[oneday+10]).className = "holi";
-                document.getElementById(x[oneday+10]).title = "山の日";
+                holiname("山の日",11);
                 break;
             case 9:
                 // 第三月曜日
-                if( oneday==0 ||  oneday==1) {
-                    document.getElementById(x[15]).className = "holi";
-                    document.getElementById(x[15]).title = "敬老の日";
-                } else {
-                    document.getElementById(x[22]).className = "holi";
-                    document.getElementById(x[22]).title = "敬老の日";
-                }
+                monday("敬老の日",15);
                 //年によって変わるので注意。現在2023
-                document.getElementById(x[oneday+22]).className = "holi";
-                document.getElementById(x[oneday+22]).title = "秋分の日";
+                holiname("秋分の日",23);
                 break;
             case 10:
                 // 第二月曜日
-                if( oneday==0 ||  oneday==1) {
-                    document.getElementById(x[8]).className = "holi";
-                    document.getElementById(x[8]).title = "海の日";
-                } else {
-                    document.getElementById(x[15]).className = "holi";
-                    document.getElementById(x[15]).title = "海の日";
-                }
+                monday("スポーツの日",8);
                 break;
             case 11:
-                document.getElementById(x[oneday+2]).className = "holi";
-                document.getElementById(x[oneday+2]).title = "文化の日";
-                document.getElementById(x[oneday+22]).className = "holi";
-                document.getElementById(x[oneday+22]).title = "勤労感謝の日";
+                holiname("文化の日",3);
+                holiname("勤労感謝の日",23);
                 break;
         }
     }
+
+    function holiname(name,date) {
+        document.getElementById(x[oneday+date-1]).className = "holi";
+        document.getElementById(x[oneday+date-1]).title = name;
+    }
+
+    function monday(name,day) {
+        if( oneday == 0 ||  oneday == 1) {
+            document.getElementById(x[day]).className = "holi";
+            document.getElementById(x[day]).title = name;
+        } else {
+            document.getElementById(x[day+7]).className = "holi";
+            document.getElementById(x[day+7]).title = name;
+        }
+    }    
 
     function holidaychange() {
         let holis = document.getElementsByClassName("holi");
