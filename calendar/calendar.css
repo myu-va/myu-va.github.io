@@ -1,0 +1,65 @@
+@charset "utf-8";
+/* メモ
+tbodyにbackgroundcolor入れるとcolが意味をなくす
+fontweightをboldとかにするとflexにしたときwidthが若干増える。
+*/
+:root{
+    --holiday-color: white;
+    --holiday-back: hsl(10, 80%, 60%); 
+    --cal-basecolor: #333;
+    --white-layer: hsla(0, 0%, 100%, .7);
+}
+* {
+    box-sizing: border-box;
+}
+.cal {
+    width: -moz-fit-content;
+    width: fit-content;
+    border: #333 solid 1px;
+    padding: .5em 1em 1em;
+}
+.calendar {
+    border-collapse: collapse;
+    width: 300px;
+    text-align: center;
+    color: var(--cal-basecolor);
+}
+.calendar_caption {
+    color: white;
+    padding: .3em;
+    background-color: var(--holiday-back);
+}
+.calendar_thead{
+    background-color: white;
+    font-size: small;
+}
+.calendar_th {
+    padding-top: .5em;
+}
+.calendar_th:first-child {
+    color: var(--holiday-back);
+}
+.calendar td {
+    border: #333 solid 1px;
+}
+.calendar_td {
+    padding: .5em 0;
+    background-color: white;
+}
+.calendar col {
+    background-color: var(--holiday-back);
+}
+.holi {
+    padding: .5em 0;
+    color: var(--holiday-color);
+    background-color: var(--holiday-back);
+}
+.other_monthH{
+    background-color: var(--white-layer);
+}
+.other_month {
+    color: hsl(0,0%,70%);
+}
+.now {
+    font-weight:bold;
+}
