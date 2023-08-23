@@ -17,17 +17,15 @@ td class=calendar_td
 .other_month
 .other_monthH
 */
-function calendar() {
+
     let table,
-        cap,
         now,
         year,
         month,
         date,
         dates,
         day,
-        thead,
-        tbody,
+        last,
         oneday,
         reiwa;
     let days = ["日","月","火","水","木","金","土"];
@@ -39,18 +37,27 @@ function calendar() {
     date = now.getDate(); //1~
     day = now.getDay(); //0~6(sun~sat)
     reiwa = "令和" + (year - 2019 + 1); //和暦　令和は2019年から
-    month=10;
-    function headcap() {
+   
+    function calendar() {
+        headcap(year);
+        calendar_table();
+        where_one();
+        calendar_num();
+        holiday(21,23);
+        holidaychange();
+    }
+
+    function headcap(year) {
         table = document.querySelector(".calendar");
-        cap = document.createElement("caption");
+        let cap = document.createElement("caption");
         let colgroup = document.createElement("colgroup");
         let col = document.createElement("col");
         colgroup.appendChild(col);
         // captionの文
-        cap.textContent = `${year}年${month}月`; //一応令和もある=reiwa
+        cap.textContent = `${year}年${month}月`; //一応令和もあるreiwa
         cap.className = "calendar_caption";
         // theadの作成
-        thead = document.createElement("thead");
+        let thead = document.createElement("thead");
         thead.className = "calendar_thead";
         let tr = document.createElement("tr");
         for(let i=0;i<days.length;i++){
@@ -68,7 +75,7 @@ function calendar() {
 
     function calendar_table() {
     // カレンダー本体のテーブル
-        tbody = document.createElement("tbody");
+        let tbody = document.createElement("tbody");
         for(let i=0;i<5;i++){
             let tr = document.createElement("tr");
             for(let j=0;j<days.length;j++){
@@ -92,44 +99,14 @@ function calendar() {
         // 現在の月の1日が何曜日か        
         let remainder = date % 7;
         oneday = day - remainder + 1;
-        switch(oneday) {
-            case 0:
-            case 7:
-                oneday = 0; // 日
-                break;
-            case 1:
-                oneday = 1; // 月
-                break;
-            case 2:
-            case -5:
-                oneday = 2; // 火
-                break;
-            case 3:
-            case -4:
-                oneday = 3; // 水
-                break;
-            case 4:
-            case -3:
-                oneday = 4; // 木
-                break;
-            case 5:
-            case -2:
-                oneday = 5; // 金
-                break;
-            case 6:
-            case-1:
-                oneday = 6; // 土
-                break;
-            default:
-                table.removeChild(tbody);
-                table.removeChild(thead);
-                cap.textContent += `${date}日`;
-                table.width = "200";
-                break;
+        if( oneday < 0 ){
+            oneday = 7 + oneday;
+        } else if(oneday == 7) {
+            oneday = 0;
         }
     }
 
-    function month_days() {
+    function month_days(month) {
         // 月ごとの日数
         switch (month){
             case 1:
@@ -139,32 +116,40 @@ function calendar() {
             case 8:
             case 10:
             case 12:
-                dates=31;
+                return 31;
                 break;
             case 2:
-                dates=28;
                 if(year%4==0){
-                    dates=29;
+                    return 29;
+                } else {
+                    return 28;
                 }
                 break;
             case 4:
             case 6:
             case 9:
             case 11:
-                dates=30;
+                return 30;
                 break;
         }
     }
 
     function calendar_num() {
+        // 月の日数について
+        dates = month_days(month);
+        if(month == 1) {
+            last = month_days(month+11);
+        } else {
+            last = month_days(month-1);
+        }
         // 先月分
         for(let i=0;i<oneday;i++){
             let j = document.getElementById(x[i]);
-            j.textContent = dates-oneday+i+1;
+            j.textContent = last-oneday+i+1;
             if(i==1 || i==2 || i==3 || i==4 || i==5){
             j.className += " other_month";
             } else {
-            j.className += " other_monthH";//保留
+            j.className += " other_monthH";
             }
         }
 
@@ -188,7 +173,7 @@ function calendar() {
         }
     }
 
-    function holiday() {
+    function holiday(haru,aki) {
         // 休日
         switch(month) {
             case 1:
@@ -201,8 +186,8 @@ function calendar() {
                 holiname("建国記念の日",11);
                 break;
             case 3:
-                //年によって変わるので注意。現在2024
-                holiname("春分の日",21);
+                //年によって変わるので注意。
+                holiname("春分の日",haru);
                 break;
             case 4:
                 holiname("昭和の日",29);
@@ -222,8 +207,8 @@ function calendar() {
             case 9:
                 // 第三月曜日
                 monday("敬老の日",15);
-                //年によって変わるので注意。現在2023
-                holiname("秋分の日",23);
+                //年によって変わるので注意。
+                holiname("秋分の日",aki);
                 break;
             case 10:
                 // 第二月曜日
@@ -279,13 +264,5 @@ function calendar() {
         }
     }
 
-    headcap();
-    calendar_table();
-    where_one();
-    month_days();
-    calendar_num();
-    holiday();
-    holidaychange();
-}
 
 calendar();
