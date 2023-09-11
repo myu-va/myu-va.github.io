@@ -35,6 +35,10 @@
     load();
     //削除
     del.addEventListener("click", () => {
+        if(dqS(".alert")){
+                dqS(".alert").textContent = "";
+                return;
+        }
         localStorage.clear();
         load();
     })
@@ -50,7 +54,7 @@
             dqS("body").appendChild(p);
             return;
         }
-        console.log(memo.value);
+        // console.log(memo.value);
         if(memo.value.match(/\S/)){
             for(let i=0;i<num.length;i++){
                 if(!localStorage.getItem(num[i])){
@@ -61,12 +65,16 @@
                 }
             }
         } else {
-            alert("空白のみでは登録できません");
+            alert("文字なしでは登録できません");
         }
         
     });
     //更新
     function load() {
+        if(dqS(".alert")){
+                dqS(".alert").textContent = "";
+                return;
+        }
         //中身を空に
         while(ul.firstChild){
         ul.removeChild(ul.firstChild);
@@ -84,19 +92,19 @@
             list.appendChild(check);
             ul.appendChild(list);
             check.onchange = ()=>{
-                console.log(check.checked)
+                // console.log(check.checked)
                 checknow(check,num[i]);
             }
             }
         }
-        para.textContent ="";
-        let a = document.querySelectorAll("li");
-        for(let i=0;i<num.length;i++){
-            // let s = a[i].className.split("class");
-            if(localStorage.getItem(num[i])){
-            para.textContent += " " + (i+1) + "." + localStorage.getItem(num[i]);
-            }
-        }
+        // para.textContent ="";
+        // let a = document.querySelectorAll("li");
+        // for(let i=0;i<num.length;i++){
+        //     // let s = a[i].className.split("class");
+        //     if(localStorage.getItem(num[i])){
+        //     para.textContent += " " + (i+1) + "." + localStorage.getItem(num[i]);
+        //     }
+        // }
     }
     // localStorage.setItem("1","テスト");
     function checknow(el,num){
