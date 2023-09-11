@@ -4,13 +4,105 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="icon" href="../favicon/favicon.ico" sizes="any"><!-- 32 -->
+    <link rel="icon" href="../favicon/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/favicon/apple-touch-icon-180x180.png"><!-- 180 -->
+    <link rel="manifest" href="/favicon/manifest.webmanifest">
     <script src="calendar.js" defer></script>
     <link rel="stylesheet" href="calendar.css">
+    <script>
+        window.onload = () => {
+            document.querySelector("#year").value = year;
+            document.querySelector("#month").value = month;
+            document.querySelector("#date").value = date;
+            document.querySelector("#day").value = day;
+
+        let a = document.querySelector('#check');
+        let d;
+        if(String(date).length == 1){
+            d = "0"+date;
+        } else {
+            d = date;
+        }
+        if(month == 11 || month == 12 || month == 10){
+            a.value =  `${year}-${month}-${d}`;
+        } else {
+            a.value = `${year}-0${month}-${d}`;
+        }
+        document.querySelector("button").addEventListener("click",()=>{
+            year = Number(document.querySelector("#year").value);
+            month = Number(document.querySelector("#month").value);
+            date = Number(document.querySelector("#date").value);
+            day = Number(document.querySelector("#day").value);
+            while(table.firstChild){
+                table.removeChild(table.firstChild);
+            }
+            x = [];
+            calendar();
+            document.querySelector("caption").textContent += "　（動作確認中）";
+        })
+        
+        // a.addEventListener("change", ()=>{
+        //     let b = a.value.split("-");
+        //     console.log(b[1].match(/^[0]/));
+        //     month = Number(b[1]);
+        //     date = Number(b[2]);
+        //     day = 0;
+        //     year = Number(b[0]);
+        //     // zero(1,month);
+        //     // zero(2,date);
+        //     while(table.firstChild){
+        //         table.removeChild(table.firstChild);
+        //     }
+        //     // function zero(i,month) {
+        //     if(b[1].match(/^[0]/)){
+        //         console.log(b[1].split("0"))
+        //         let s = b[1].split("0");
+        //         month = Number(s[1]);
+        //     }
+        //     if(b[2].match(/^[0]/)){
+        //         console.log(b[2].split("0"))
+        //         let s = b[2].split("0");
+        //         date = Number(s[1]);
+        //     }
+            // x=[];
+            // }
+            // date = 20;
+            // console.log("月日"+month,date,day,year)
+            // calendar();
+        // })
+        }
+    </script>
 </head>
 <body>
     <div class="cal">
     <table class="calendar">
     </table>
     </div>
+    <menu>
+        <li>
+            <label for="check">日付の確認</label>
+            <input type="date" id="check" min="2023-01-01" max="2025-01-01" value="">
+        </li>
+        <li>
+            <label for="year">年(うるう年との二択)</label>
+            <input type="number" id="year" min="2023" max="2024" value="">
+        </li>
+        <li>
+            <label for="month">月</label>
+            <input type="number" id="month" min="1" max="12" value="">
+        </li>
+        <li>
+            <label for="date">日</label>
+            <input type="number" id="date" min="1" max="31" value="">
+        </li>
+        <li>
+            <label for="day">曜日（日曜日「0」~土曜日「6」の数字）</label>
+            <input type="number" id="day" min="0" max="6" value="">
+        </li>
+        <li>
+            <button type="button">変更</button>
+        </li>    
+    </menu>
 </body>
 </html>

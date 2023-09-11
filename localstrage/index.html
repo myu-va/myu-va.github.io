@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ローカルストレージにメモ</title>
+    <link rel="icon" href="../favicon/favicon.ico" sizes="any"><!-- 32 -->
+    <link rel="icon" href="../favicon/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/favicon/apple-touch-icon-180x180.png"><!-- 180 -->
+    <link rel="manifest" href="/favicon/manifest.webmanifest">
+</head>
+<body>
+    <h2>localstrageにメモをしてみる</h2>
+    <!-- <form action=""> -->
+        <label for="memo">メモ</label>
+        <input type="text" id="memo" placeholder="ここに書く" maxlength="30">
+        <button type="button">保存</button>
+        <button type="button" id="delete">全データ削除</button>
+    <!-- </form> -->
+    <ul>
+        <!-- <li></li> -->
+    </ul>
+</body>
+</html>
+<script defer>
+    let ul = dqS("ul");
+    let button = dqS("button");
+    let memo = dqS("#memo");
+    let del = dqS("#delete");
+    let para = dcE("p");
+    // let x = [];
+    let num = [1,2,3,4,5,6,7,8,9,10];
+    dqS("body").appendChild(para);
+    //localstrage読み込み
+    load();
+    //削除
+    del.addEventListener("click", () => {
+        localStorage.clear();
+        load();
+    })
+    //追加
+    button.addEventListener("click", () => {
+        if(localStorage.length >= num.length){
+            if(dqS(".alert")){
+                return;
+            }
+            let p = dcE("p");
+            p.className = "alert";
+            p.textContent = "ひとまず10個までです。"
+            dqS("body").appendChild(p);
+            return;
+        }
+        console.log(memo.value);
+        if(memo.value.match(/\S/)){
+            for(let i=0;i<num.length;i++){
+                if(!localStorage.getItem(num[i])){
+                localStorage.setItem(num[i],memo.value);
+                memo.value = "";
+                load();
+                return;
+                }
+            }
+        } else {
+            alert("空白のみでは登録できません");
+        }
+        
+    });
+    //更新
+    function load() {
+        //中身を空に
+        while(ul.firstChild){
+        ul.removeChild(ul.firstChild);
+        }
+        //入れる
+        for(let i = 0; i<localStorage.length;i++){
+            let data = localStorage.getItem(num[i]);
+            // data = localStorage[num[i]];
+            if(data){
+            let list = dcE("li");
+            list.textContent = data;
+            let check = dcE("input");
+            check.type = "checkbox";
+            list.className = num[i];
+            list.appendChild(check);
+            ul.appendChild(list);
+            check.onchange = ()=>{
+                console.log(check.checked)
+                checknow(check,num[i]);
+            }
+            }
+        }
+        para.textContent ="";
+        let a = document.querySelectorAll("li");
+        for(let i=0;i<num.length;i++){
+            // let s = a[i].className.split("class");
+            if(localStorage.getItem(num[i])){
+            para.textContent += " " + (i+1) + "." + localStorage.getItem(num[i]);
+            }
+        }
+    }
+    // localStorage.setItem("1","テスト");
+    function checknow(el,num){
+        if(el.checked){
+            localStorage.removeItem(num);
+            load();
+        }
+    }
+
+    function dqS(ele) {
+        return document.querySelector(ele);
+    }
+    function dcE(ele) {
+        return document.createElement(ele);
+    }
+</script>

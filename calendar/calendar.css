@@ -5,7 +5,20 @@ fontweightをboldとかにするとflexにしたときwidthが若干増える。
 */
 :root{
     --holiday-color: white;
-    --holiday-back: hsl(10, 80%, 60%); 
+    --holiday-back1: hsl(10, 80%, 60%); 
+    --holiday-back2: hsl(195, 61%, 63%); 
+    --holiday-back3: hsl(341, 61%, 65%); 
+    --holiday-back4: hsl(84, 52%, 48%); 
+    --holiday-back5: hsl(125, 43%, 54%); 
+    --holiday-back6: hsl(228, 66%, 65%); 
+    --holiday-back7: hsl(185, 75%, 61%); 
+    --holiday-back8: hsl(245, 43%, 54%); 
+    --holiday-back9: hsl(169, 43%, 54%); 
+    --holiday-back10: hsl(26, 79%, 55%); 
+    --holiday-back11: hsl(214, 43%, 54%); 
+    --holiday-back12: hsl(239, 50%, 39%); 
+    
+
     --cal-basecolor: #333;
     --white-layer: hsla(0, 0%, 100%, .7);
 }
@@ -13,21 +26,22 @@ fontweightをboldとかにするとflexにしたときwidthが若干増える。
     box-sizing: border-box;
 }
 .cal {
-    width: -moz-fit-content;
-    width: fit-content;
+    max-width: 400px;
+    width: 100%;
+    min-width: 300px;
     border: #333 solid 1px;
     padding: .5em 1em 1em;
 }
 .calendar {
     border-collapse: collapse;
-    width: 300px;
+    width: 100%;
     text-align: center;
     color: var(--cal-basecolor);
 }
 .calendar_caption {
     color: white;
     padding: .3em;
-    background-color: var(--holiday-back);
+    background-color: var(--holiday-back8);
 }
 .calendar_thead{
     background-color: white;
@@ -37,7 +51,7 @@ fontweightをboldとかにするとflexにしたときwidthが若干増える。
     padding-top: .5em;
 }
 .calendar_th:first-child {
-    color: var(--holiday-back);
+    color: var(--holiday-back8);
 }
 .calendar td {
     border: #333 solid 1px;
@@ -47,12 +61,12 @@ fontweightをboldとかにするとflexにしたときwidthが若干増える。
     background-color: white;
 }
 .calendar col {
-    background-color: var(--holiday-back);
+    background-color: var(--holiday-back8);
 }
 .holi {
     padding: .5em 0;
     color: var(--holiday-color);
-    background-color: var(--holiday-back);
+    /* background-color: var(--holiday-back8); */
 }
 .other_monthH{
     background-color: var(--white-layer);

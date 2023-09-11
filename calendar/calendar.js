@@ -27,7 +27,10 @@ td class=calendar_td
         day,
         last,
         oneday,
-        reiwa;
+        reiwa,
+        cap,
+        col,
+        tbody;
     let days = ["日","月","火","水","木","金","土"];
     let x=[];
 
@@ -37,21 +40,22 @@ td class=calendar_td
     date = now.getDate(); //1~
     day = now.getDay(); //0~6(sun~sat)
     reiwa = "令和" + (year - 2019 + 1); //和暦　令和は2019年から
-   
+
     function calendar() {
         headcap(year);
         calendar_table();
         where_one();
         calendar_num();
-        holiday(21,23);
+        holiday(21,23);//春分の日と秋分の日
         holidaychange();
+        colorchange();
     }
 
     function headcap(year) {
         table = document.querySelector(".calendar");
-        let cap = document.createElement("caption");
+        cap = document.createElement("caption");
         let colgroup = document.createElement("colgroup");
-        let col = document.createElement("col");
+        col = document.createElement("col");
         colgroup.appendChild(col);
         // captionの文
         cap.textContent = `${year}年${month}月`; //一応令和もあるreiwa
@@ -75,8 +79,8 @@ td class=calendar_td
 
     function calendar_table() {
     // カレンダー本体のテーブル
-        let tbody = document.createElement("tbody");
-        for(let i=0;i<5;i++){
+        tbody = document.createElement("tbody");
+        for(let i=0;i<6;i++){
             let tr = document.createElement("tr");
             for(let j=0;j<days.length;j++){
                 let td = document.createElement("td");
@@ -159,7 +163,7 @@ td class=calendar_td
             j.textContent = i+1;
             if(i+1 == date){
                 //今日
-                j.className += " now";  
+                j.className += " now";
             }
             oneday++;
         }
@@ -167,9 +171,14 @@ td class=calendar_td
         
         //来月分
         let next = x.length-dates-oneday; //余ってるマス
+        console.log(next)
         for(let i=0; i<next; i++){
             document.getElementById(x[x.length-next+i]).textContent = i+1;
             document.getElementById(x[x.length-next+i]).className += " other_month";
+        }
+        if(next > 6) {
+            let last = document.querySelectorAll("tr")[6];
+            tbody.removeChild(last);
         }
     }
 
@@ -222,7 +231,7 @@ td class=calendar_td
     }
 
     function holiname(name,date) {
-        document.getElementById(x[oneday+date-1]).className = "holi";
+        document.getElementById(x[oneday+date-1]).className += " holi";
         document.getElementById(x[oneday+date-1]).title = name;
     }
 
@@ -248,6 +257,7 @@ td class=calendar_td
                     holis[i].id == "td40"
                 ){
                     let j = Number(holis[i].id.slice(2,4));
+                    console.log("テスト"+j);
                     holigiro(j);
                 }
             }
@@ -256,13 +266,65 @@ td class=calendar_td
 
     function holigiro(id) {
         console.log("td"+(id+1));
-        if(document.getElementById("td"+(id+1)).className == "holi") {
+        if(String(id+1).length == 1) {
+            id = "0" + (id+1);
+        } else {
+            id = id+1
+        }
+        if(document.getElementById("td"+id).className == "holi") {
             holigiro(id + 1);
         } else {
-            document.getElementById("td"+(id+1)).className = "holi";
-            document.getElementById("td"+(id+1)).title = "振替休日";
+            document.getElementById("td"+id).className = "holi";
+            document.getElementById("td"+id).title = "振替休日";
         }
     }
 
-
+    function colorchange(){
+        let imgcolor;
+        switch(month) {
+            case 1:
+                imgcolor = "var(--holiday-back1)";
+                break;
+            case 2:
+                imgcolor = "var(--holiday-back2)";
+                break;
+            case 3:
+                imgcolor = "var(--holiday-back3)";
+                break;
+            case 4:
+                imgcolor = "var(--holiday-back4)";
+                break;
+            case 5:
+                imgcolor = "var(--holiday-back5)";
+                break;
+            case 6:
+                imgcolor = "var(--holiday-back6)";
+                break;
+            case 7:
+                imgcolor = "var(--holiday-back7)";
+                break;
+            case 8:
+                imgcolor = "var(--holiday-back8)";
+                break;
+            case 9:
+                imgcolor = "var(--holiday-back9)";
+                break;
+            case 10:
+                imgcolor = "var(--holiday-back10)";
+                break;
+            case 11:
+                imgcolor = "var(--holiday-back11)";
+                break;
+            case 12:
+                imgcolor = "var(--holiday-back12)";
+            break;
+        }
+    cap.style.backgroundColor = imgcolor;
+    col.style.backgroundColor = imgcolor;
+    let count = document.querySelectorAll(".holi:not(:nth-child(1))");
+    for(let i=0;i<count.length;i++){
+        count[i].style.backgroundColor = imgcolor;
+    }
+    document.querySelector(".calendar_th:first-child").style.color = imgcolor;
+    }
 calendar();
