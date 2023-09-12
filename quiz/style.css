@@ -173,9 +173,17 @@ canvas {
 }
 
 /* @media screen and (max-width: 600px){ */
-  .startp {
-    width: 80%;
+  .startp,
+  .startp2 {
+    /* width: 100%; */
+    /* padding-left: 0.7em; */
+    width: 90%;
     text-align: center;
     /* font-size: 16px; */
   }
+  .startp > span {
+    display: inline-block;
+  }
+  
+   
 /* } */

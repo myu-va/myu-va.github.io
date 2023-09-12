@@ -100,6 +100,8 @@ function test(ans,ticks) {
             
             clearInterval(timerId);
             setTimeout(function(){
+                startp.style.paddingLeft = "0.7em";
+                startp2.style.paddingLeft = "0.7em";
                 startp.textContent = "お疲れ様です。";
                 startp2.textContent = `結果は${score}点でした。`
                 // console.log("ll" + qq);
@@ -114,7 +116,7 @@ function test(ans,ticks) {
                 canvas.style.zIndex = "3";
                 canvas.style.right = "0";
                 canvas.style.top = "300px";
-                canvas.style.left = "43%";
+                canvas.style.left = "41%";
                 anime(0,1);
                 restart.style.display = "block";
                 start.onclick = () => {
