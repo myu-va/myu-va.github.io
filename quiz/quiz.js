@@ -84,6 +84,7 @@ function tick() {
 
 function test(ans,ticks) {
     judge.textContent = ans;
+    judge.style.color = ans === "✕不正解" ? "blue" : "red" ;
     q.splice(r, 1);
     clearInterval(timerId);
     count=0;
