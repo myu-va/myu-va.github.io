@@ -1,0 +1,167 @@
+@charset "utf-8";
+
+*,*:before,*:after {
+  box-sizing: border-box;
+}  
+
+:root {
+  --baseColor: #333;
+  --backgroundcolor: turquoise;
+  --quiz-padding:.5em 1em .2em;
+}
+
+a {
+  color: var(--baseColor);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+/* ヘッダー
+*/
+header {
+  width: 100%;
+  /* padding: .7em 0 .5em; */
+  text-align: center;
+  background-color: var(--backgroundcolor);
+  margin-bottom: 2em;
+}
+
+header a {
+  display: inline-block;
+  padding: .7em .5em .5em;
+}
+
+
+/* フッター 
+*/
+footer {
+  margin-top: 2em;
+  text-align: center;
+  background-color: var(--backgroundcolor);
+  padding: 1em 0 2em;
+}
+
+/* メイン 
+*/
+main {
+  display: flex;
+  justify-content: center;
+}
+
+.quiz-box {
+  width: 600px;
+  height: 500px;
+  /* height: auto; */
+  background-color: aliceblue;
+  border-radius: 10px;
+  position: relative;
+  font-size: 1.2rem;
+}
+
+.quiz-head {
+  background-color: paleturquoise;
+  margin: 0;
+  padding: var(--quiz-padding);
+  border-radius: 10px 10px 0 0;
+  margin-bottom: .5em;
+  font-size: 1.6rem;
+}
+.quiz-num {
+  padding: var(--quiz-padding);
+}
+.quiz {
+  padding: var(--quiz-padding);
+  margin-bottom: 2em;
+}
+
+.answer-box {
+  position: absolute;
+  top: 65%;
+  width: 100%;
+  height: 35%;
+  /* height: auto; */
+  background-color: paleturquoise;
+  border-radius: 0 0 10px 10px;
+}
+.answer {
+  width: 50%;
+  height: 80%;
+  /* height: auto; */
+  padding: var(--quiz-padding);
+  
+}
+.answer:first-child {
+  position: absolute;
+  left: 50%;
+  border-left: 2px solid white;
+}
+
+.judge {
+  position: absolute;
+  top: 55%;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.score {
+
+  position: absolute;
+  /* position: relative; */
+  bottom: 0;
+  padding: var(--quiz-padding);
+  width: 100%;
+  text-align: end;
+  background-color: rgb(75, 219, 171);
+  border-radius: 0 0 10px 10px;
+}
+
+.start {
+  position: absolute;
+  z-index: 2;
+  background-color: teal;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: aliceblue;
+  font-size: 1.5em;
+  opacity: 1;
+  transition: height .3s ease-in, opacity .3s ease;
+}
+
+.quizonly {
+  display: none;
+}
+canvas {
+  /* background-color: #333; */
+  position: absolute;
+  right: 2%;
+  top: 250px;
+  z-index: 0;
+
+}
+
+.restart {
+  background-color: cadetblue;
+  border-radius: 10px;
+  padding: var(--quiz-padding);
+  z-index: 4;
+  position: absolute;
+  top:100px;
+}
+
+.restart:hover {
+  cursor: pointer;
+  background-color: rgba(256, 256, 256, .5);
+}

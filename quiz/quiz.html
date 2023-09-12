@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>クイズ</title>
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="../favicon/favicon.ico" sizes="any"><!-- 32 -->
+    <link rel="icon" href="../favicon/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/favicon/apple-touch-icon-180x180.png"><!-- 180 -->
+    <link rel="manifest" href="/favicon/manifest.webmanifest">
+    <script src="quiz.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <a href="https://myu-va.github.io/test.html">test.html</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <img class="img" src="cat.png" alt="" style="display: none;">
+        
+        <div class="quiz-box">
+            <canvas width="64" height="64"></canvas>
+            <div class="start">
+                <p class="startp">画面をクリックしてスタート</p>
+                <p class="startp2"></p>
+                <p class="restart">もう一回！</p>
+            </div>
+            <div class="quizonly">
+            <h2 class="quiz-head"></h2>
+            <p class="quiz-num"></p>
+            <p class="quiz"></p>
+            <div class="judge">
+                <p></p>
+            </div>
+            <div class="answer-box">
+                <p class="answer"></p>
+                <p class="answer"></p>
+            </div>
+            <p class="score"></p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <small>©myu-va</small>
+    </footer>
+</body>
+</html>
