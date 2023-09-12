@@ -84,7 +84,7 @@ function tick() {
 
 function test(ans,ticks) {
     judge.textContent = ans;
-    judge.style.color = ans === "✕不正解" ? "blue" : "red" ;
+    judge.style.color = ans === "✕不正解" ? "royalblue" : "orangered" ;
     q.splice(r, 1);
     clearInterval(timerId);
     count=0;
@@ -102,22 +102,29 @@ function test(ans,ticks) {
             clearInterval(timerId);
             setTimeout(function(){
                 startp.style.paddingLeft = "0.7em";
-                startp2.style.paddingLeft = "0.7em";
+                // startp2.style.paddingLeft = "0.7em";
                 startp.textContent = "お疲れ様です。";
                 startp2.textContent = `結果は${score}点でした。`
                 // console.log("ll" + qq);
+                let span = document.createElement("span");
+                startp2.appendChild(span);
+                span.style.display = "inline-block";
                 if(score==qq*10) {
-                    startp2.textContent += "満点だ。やったね";
-                } else if(score<=qq/2*10) {
-                    startp2.textContent += "もう少しがんばって";
+                    span.textContent += "満点だ。やったね。";
+                } else if(score>=qq/4*10*3 && score<qq*10) {
+                    span.textContent += "いい感じです。";
+                } else if(score<=qq/2*10 && score>0) {
+                    span.textContent += "もう少しがんばって。";
                 } else if(score == 0) {
-                    startp2.textContent += "いっそ奇跡的ですね";
+                    span.textContent += "いっそ奇跡的ですね。";
+                } else {
+                    span.textContent += "そこそこですね。";
                 }
                 ctx.clearRect(0,0,width,height);
                 canvas.style.zIndex = "3";
                 canvas.style.right = "0";
                 canvas.style.top = "300px";
-                canvas.style.left = "41%";
+                canvas.style.left = "42%";
                 anime(0,1);
                 restart.style.display = "block";
                 start.onclick = () => {
